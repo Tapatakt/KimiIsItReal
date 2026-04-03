@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "Kimi Is It Real",
+  "version": "1.0.1",
+  "description": "Выдели текст, нажми Ctrl+Shift+K — Kimi проверит факты.",
+  "permissions": ["activeTab", "scripting", "storage", "tabs"],
+  "host_permissions": [
+    "https://kimi.com/*",
+    "https://www.kimi.com/*",
+    "https://kimi.moonshot.cn/*",
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://kimi.com/*",
+        "https://www.kimi.com/*",
+        "https://kimi.moonshot.cn/*"
+      ],
+      "js": ["kimi.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "fact-check-selection": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K"
+      },
+      "description": "Проверить выделенный текст в Kimi"
+    }
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon.svg",
+      "48": "icons/icon.svg",
+      "128": "icons/icon.svg"
+    }
+  },
+  "icons": {
+    "16": "icons/icon.svg",
+    "48": "icons/icon.svg",
+    "128": "icons/icon.svg"
+  }
+}
